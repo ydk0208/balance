@@ -8,7 +8,7 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor Left = motor(PORT1, ratio18_1, false);
+motor Left = motor(PORT1, ratio18_1, true);
 motor Right = motor(PORT2, ratio18_1, false);
 inertial gyro1 = inertial(PORT11);
 

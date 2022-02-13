@@ -13,10 +13,11 @@
 // Left                 motor         1               
 // Right                motor         2               
 // gyro1                inertial      11              
+// Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 double kp = 3.5;
-double kd = 5s;
-double ki = 0.11;
+double kd = 4;
+double ki = 0.13;
 double k = 0;
 #include "vex.h"
 
@@ -29,18 +30,23 @@ int main() {
   double last = 0;
   double D = 0;
   double I = 0;
+
+  double target = 0;
   while(1){
+    target = Controller1.Axis3.position()/20;
     roll = gyro1.roll(rotationUnits::deg);
     pitch = gyro1.pitch(rotationUnits::deg);
     yaw = gyro1.yaw(rotationUnits::deg);
-    D = pitch-last;
-    I = I+pitch;
-    if(I > 500||I < -500) I = 0;
-    double PID = kp*pitch+kd*(D)+ki*I;
-    if(pitch>3&&pitch < 5) PID = PID+k;
-    else if(pitch <-3&&pitch > -5) PID = PID-k;
+
+    double error = pitch-target;
+    D = error-last;
+    I = I+error;
+    if(I > 800||I < -800) I = 0;
+    double PID = kp*error+kd*(D)+ki*I;
+    if(error>3&&error < 5) PID = PID+k;
+    else if(error <-3&&error > -5) PID = PID-k;
     
-    if(pitch>30 || pitch < -30) PID = 0;
+    if(error>40 || error < -40) PID = 0;
 
     Left.spin(directionType::rev,(int)PID,velocityUnits::pct);
     Right.spin(directionType::rev,(int)PID,velocityUnits::pct);

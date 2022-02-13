@@ -11,10 +11,11 @@ brain  Brain;
 motor Left = motor(PORT1, ratio18_1, true);
 motor Right = motor(PORT2, ratio18_1, false);
 inertial gyro1 = inertial(PORT11);
+controller Controller1 = controller(primary);
 
 // VEXcode generated functions
-
-
+// define variable for remote controller enable/disable
+bool RemoteControlCodeEnabled = true;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

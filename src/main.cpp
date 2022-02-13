@@ -14,9 +14,9 @@
 // Right                motor         2               
 // gyro1                inertial      11              
 // ---- END VEXCODE CONFIGURED DEVICES ----
-double kp = 3.7;
-double kd = 4.8;
-double ki = 0.1;
+double kp = 3.5;
+double kd = 5s;
+double ki = 0.11;
 double k = 0;
 #include "vex.h"
 

@@ -15,9 +15,9 @@
 // gyro1                inertial      11              
 // Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
-double kp = 3.5;
-double kd = 4;
-double ki = 0.13;
+double kp = 7.3;
+double kd = 8;
+double ki = 0.32;
 double k = 0;
 #include "vex.h"
 
@@ -46,7 +46,7 @@ int main() {
     if(error>3&&error < 5) PID = PID+k;
     else if(error <-3&&error > -5) PID = PID-k;
     
-    if(error>40 || error < -40) PID = 0;
+    if(pitch>40 || pitch < -40) PID = 0;
 
     Left.spin(directionType::rev,(int)PID,velocityUnits::pct);
     Right.spin(directionType::rev,(int)PID,velocityUnits::pct);
@@ -57,7 +57,7 @@ int main() {
     Brain.Screen.print(D);
     Brain.Screen.setCursor(3,1);
     Brain.Screen.print(I);
-    last = pitch;
+    last = error;
     wait(10,timeUnits::msec);
   }
 }
